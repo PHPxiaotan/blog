@@ -7,7 +7,7 @@
     
 
     <title>
-      demo | lucktan blog 
+      mysql配置远程连接 | lucktan blog 
     </title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -16,17 +16,17 @@
     
     
 
-    <meta name="description" content="Quick StartCreate a new post1$ hexo new &quot;My New Post&quot; More info: Writing Run server5551$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote site">
+    <meta name="description" content="centeros7安装mysql5.7   下载mysql的repo源$ wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm 安装mysql-community-release-el7-5.noarch.rpm包$ sudo rpm -ivh mysql-community-release-el7-5.noarc">
 <meta property="og:type" content="article">
-<meta property="og:title" content="demo | lucktan blog">
+<meta property="og:title" content="mysql配置远程连接 | lucktan blog">
 <meta property="og:url" content="http://blog.tjh520 .com/2018/09/17/demo/index.html">
 <meta property="og:site_name" content="lucktan blog">
-<meta property="og:description" content="Quick StartCreate a new post1$ hexo new &quot;My New Post&quot; More info: Writing Run server5551$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote site">
+<meta property="og:description" content="centeros7安装mysql5.7   下载mysql的repo源$ wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm 安装mysql-community-release-el7-5.noarch.rpm包$ sudo rpm -ivh mysql-community-release-el7-5.noarc">
 <meta property="og:locale" content="chinese">
-<meta property="og:updated_time" content="2018-09-17T08:08:47.771Z">
+<meta property="og:updated_time" content="2018-09-18T08:40:55.707Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="demo | lucktan blog">
-<meta name="twitter:description" content="Quick StartCreate a new post1$ hexo new &quot;My New Post&quot; More info: Writing Run server5551$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote site">
+<meta name="twitter:title" content="mysql配置远程连接 | lucktan blog">
+<meta name="twitter:description" content="centeros7安装mysql5.7   下载mysql的repo源$ wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm 安装mysql-community-release-el7-5.noarch.rpm包$ sudo rpm -ivh mysql-community-release-el7-5.noarc">
     
     
     
@@ -155,7 +155,7 @@ classes that you can use:
 
   <header class="post-header">
     
-    <h1 class="post-title">demo</h1>
+    <h1 class="post-title">mysql配置远程连接</h1>
 
     
 
@@ -176,14 +176,28 @@ classes that you can use:
   </header>
 
   <section id="post-content" class="article-content post">
-    <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server555"><a href="#Run-server555" class="headerlink" title="Run server555"></a>Run server555</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+    <ol>
+<li>centeros7安装mysql5.7 </li>
+</ol>
+<p>下载mysql的repo源<br>$ wget <a href="http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm" target="_blank" rel="noopener">http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm</a></p>
+<p>安装mysql-community-release-el7-5.noarch.rpm包<br>$ sudo rpm -ivh mysql-community-release-el7-5.noarch.rpm</p>
+<p>安装mysql<br>$ sudo yum install mysql-server</p>
+<p>根据提示安装就可以了,不过安装完成后没有密码,需要重置密码<br>修改owner<br>$ sudo chown -R root:root /var/lib/mysql</p>
+<p>重启mysql服务<br>$ service mysqld restart</p>
+<p>登录重置密码：<br>$ mysql -u root //直接回车进入mysql控制台<br>$ use mysql;<br>$ update mysql.user set authentication_string=password(‘root’) where user=’root’ ;<br>$ exit;<br>配置云服务器安全组，打开3306端口<br>配置数据库可远程连接<br>数据库授权<br>$ mysql -u root //直接回车进入mysql控制台<br>$  use mysql;<br>$ GRANT ALL PRIVILEGES ON <em>.</em> TO ‘root‘@’%’ IDENTIFIED BY ‘密码’ WITH GRANT OPTION; －－允许远程访问<br>$ flush privileges;<br>$ exit<br>重启mysql</p>
+<p>1.CentOS 7  开启防火墙端口号</p>
+<p>查看已经开放端口号<br>firewall-cmd –list-ports</p>
+<p>永久开放端口号<br>firewall-cmd –zone=public –add-port=3306/tcp –permanent<br>–zone #作用域<br>–add-port=3306/tcp #添加端口，格式为：端口/通讯协议<br>–permanent #永久生效，没有此参数重启后失效</p>
+<p>firewall-cmd –reload #重启firewall<br>systemctl stop firewalld.service #停止firewall<br>systemctl disable firewalld.service #禁止firewall开机启动</p>
+<p>CentOS 7 以下版本 iptables 命令<br>如要开放80，22，8080 端口，输入以下命令即可</p>
+<p>/sbin/iptables -I INPUT -p tcp –dport 80 -j ACCEPT<br>/sbin/iptables -I INPUT -p tcp –dport 22 -j ACCEPT<br>/sbin/iptables -I INPUT -p tcp –dport 8080 -j ACCEPT<br>1<br>2<br>3<br>然后保存：</p>
+<p>/etc/rc.d/init.d/iptables save<br>1<br>查看打开的端口：</p>
+<p>/etc/init.d/iptables status<br>1<br>关闭防火墙<br>1） 永久性生效，重启后不会复原</p>
+<p>开启： chkconfig iptables on</p>
+<p>关闭： chkconfig iptables off</p>
+<p>2） 即时生效，重启后复原</p>
+<p>开启： service iptables start</p>
+<p>关闭： service iptables stop</p>
 
   </section>
 
