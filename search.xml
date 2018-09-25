@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[Hexo——Yilia主题添加文章置顶]]></title>
     <url>%2F2018%2F09%2F25%2Fhexo%E7%BD%AE%E9%A1%B6%2F</url>
-    <content type="text"><![CDATA[开始blog目录下执行以下命令。至于原因嘛，我也不知道🙃 npm uninstall hexo-generator-index --save npm install hexo-generator-index-pin-top --save 然后在文章头添加 top:true 如：--- title: 朝朝暮暮不过是一场梦 date: 2018-09-25 11:59:59 tags: 随笔记 top: true categories: 文章 --- ok 完成]]></content>
+    <content type="text"><![CDATA[开始blog目录下执行以下命令。至于原因嘛，我也不知道🙃 npm uninstall hexo-generator-index --save npm install hexo-generator-index-pin-top --save 然后在文章头添加 top:true 如： --- title: 朝朝暮暮不过是一场梦 date: 2018-09-25 11:59:59 tags: 随笔记 top: true categories: 文章 --- ok 完成]]></content>
       <categories>
         <category>文章</category>
       </categories>
