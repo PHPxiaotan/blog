@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[mysql配置远程连接]]></title>
+    <url>%2F2018%2F09%2F17%2Fdemo%2F</url>
+    <content type="text"><![CDATA[centeros7安装mysql5.7 下载mysql的repo源$ wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm 安装mysql-community-release-el7-5.noarch.rpm包$ sudo rpm -ivh mysql-community-release-el7-5.noarch.rpm 安装mysql$ sudo yum install mysql-server 根据提示安装就可以了,不过安装完成后没有密码,需要重置密码 修改owner$ sudo chown -R root:root /var/lib/mysql 重启mysql服务$ service mysqld restart 登录重置密码：$ mysql -u root //直接回车进入mysql控制台 $ use mysql; $ update mysql.user set authentication_string=password(&apos;root&apos;) where user=&apos;root&apos; ; $ exit; 配置云服务器安全组，打开3306端口配置数据库可远程连接 数据库授权$ mysql -u root //直接回车进入mysql控制台 $ use mysql; $ GRANT ALL PRIVILEGES ON *.* TO &apos;root&apos;@&apos;%&apos; IDENTIFIED BY &apos;密码&apos; WITH GRANT OPTION; －－允许远程访问 $ flush privileges; $ exit 重启mysql1.CentOS 7 开启防火墙端口号查看已经开放端口号firewall-cmd --list-ports 永久开放端口号firewall-cmd --zone=public --add-port=3306/tcp --permanent –zone #作用域–add-port=3306/tcp #添加端口，格式为：端口/通讯协议–permanent #永久生效，没有此参数重启后失效 firewall-cmd --reload #重启firewall systemctl stop firewalld.service #停止firewall systemctl disable firewalld.service #禁止firewall开机启动 CentOS 7 以下版本 iptables 命令如要开放80，22，8080 端口，输入以下命令即可/sbin/iptables -I INPUT -p tcp --dport 80 -j ACCEPT /sbin/iptables -I INPUT -p tcp --dport 22 -j ACCEPT /sbin/iptables -I INPUT -p tcp --dport 8080 -j ACCEPT 然后保存：/etc/rc.d/init.d/iptables save 查看打开的端口：/etc/init.d/iptables status 关闭防火墙永久性生效，重启后不会复原开启： chkconfig iptables on 关闭： chkconfig iptables off 即时生效，重启后复原开启： service iptables start 关闭： service iptables stop]]></content>
+      <tags>
+        <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[python2升级]]></title>
+    <url>%2F2018%2F09%2F17%2Fhello-world%2F</url>
+    <content type="text"><![CDATA[创建安装目录 [root@myprecious opt]# mkdir /usr/local/python3 下载Python3 [root@myprecious opt]# wget https://www.python.org/ftp/python/3.6.4/Python-3.6.4.tar.xz 编译安装 [root@myprecious opt]# tar xf Python-3.6.4.tar.xz &amp;&amp; cd Python-3.6.4 [root@myprecious Python-3.6.4]# ./configure --prefix=/usr/local/python3 [root@myprecious Python-3.6.4]# make [root@myprecious Python-3.6.4]# make install 更改链接使Python2/3两版本共存 [root@myprecious Python-3.6.4]# mv /usr/bin/python{,_bak} [root@myprecious Python-3.6.4]# mv /usr/bin/pip{,_bak} [root@myprecious Python-3.6.4]# ln -s /usr/local/python3/bin/python3 /usr/bin/python [root@myprecious Python-3.6.4]# ln -s /usr/local/python3/bin/pip3 /usr/bin/pip 使常用工具继续使用python2.7版本 [root@myprecious Python-3.6.4]# sed -i &apos;s@#!/usr/bin/python@#!/usr/bin/python2.7@&apos; /usr/bin/yum [root@myprecious Python-3.6.4]# sed -i &apos;s@#!/usr/bin/python@#!/usr/bin/python2.7@&apos; /usr/libexec/urlgrabber-ext-down 注：以后碰到其他由python写的工具不能正常工作时也可以先尝试此操作，比如supervisor。 验证python及pip版本 [root@myprecious install]# python -V Python 3.6.4 [root@myprecious install]# pip -V pip 9.0.1 from /usr/local/python3/lib/python3.6/site-packages (python 3.6)]]></content>
+  </entry>
+</search>
