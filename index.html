@@ -191,67 +191,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>####服务器环境配置<br>我使用的是root执行，因为服务器只有我一个人用，不会出什么问题</p>
-<p>####安装git和nginx<br>请查看CentOS7 + nodejs + nginx + MySQL搭建服务器</p>
-<p>配置ssh执行：</p>
-<pre><code>cat ~/.ssh/id_rsa.pub
-</code></pre><p>把拿到的公钥添加到~/.ssh/authorized_keys中</p>
-<p>如果你之前没有生成过公钥，则可能就没有 id_rsa.pub 文件,查看这里</p>
-<p>初始化仓库<br>cd /home/jake</p>
-<pre><code>sudo git init --bare m.git
-</code></pre><p>使用 –bare 参数，Git 就会创建一个裸仓库，裸仓库没有工作区，我们不会在裸仓库上进行操作，它只为共享而存在。</p>
-<p>####配置git hooks<br>我们这里要使用的是 post-receive 的 hook，这个 hook 会在整个 git 操作过程完结以后被运行。</p>
-<p>在 m.git/hooks 目录下新建一个 post-receive 文件：</p>
-<p>cd /home/jake/m.git/hooks<br>vim post-receive<br>在 post-receive 文件中写入如下内容：</p>
-<pre><code>#!/bin/sh
-git --work-tree=/home/jake/m --git-dir=/home/jake/m.git checkout -f
-</code></pre><p>/home/jake/m 要换成你自己的部署目录。上面那句 git 命令可以在我们每次 push 完之后，把部署目录更新到博客的最新生成状态。这样便可以完成达到自动部署的目的了。</p>
-<p>设置这个文件的可执行权限：</p>
-<pre><code>chmod +x post-receive
-</code></pre><p>Nginx配置<br>我用的是lnmp(如果是直接安装的Nginx，配置文件为/etc/nginx/nginx.conf)</p>
-<p>cd /usr/local/nginx/conf/vhost<br>vim m.conf<br>输入下面配置</p>
-<pre><code>server
-{
-    listen 80;
-    #listen [::]:80;
-    server_name i.jakeyu.top;
-    index index.html index.htm index.php default.html default.htm default.php;
-    #这里要改成网站的根目录
-    root  /home/jake/m;  
-
-    #error_page   404   /404.html;
-    location ~ .*\.(ico|gif|jpg|jpeg|png|bmp|swf)$
-    {
-        access_log   off;
-        expires      1d;
-    }
-
-    location ~ .*\.(js|css|txt|xml)?$
-    {
-        access_log   off;
-        expires      12h;
-    }
-
-    location / {
-        try_files $uri $uri/ =404;
-    }
-
-    access_log  /home/jake/m.log;
-}
-</code></pre><p>测试nginx配置是否可以用</p>
-<pre><code>nginx -t
-</code></pre><p>如果返回successful，就表示成功了。重启Nginx</p>
-<pre><code>service nginx restart
-</code></pre><p>本地配置<br>修改博客根目录下_config.yml文件</p>
-<pre><code>deploy:
-  type: git
-  repo: 
-    vps: root@115.159.2.254:/home/jake/m.git
-</code></pre><p>然后执行:</p>
-<pre><code>hexo new 测试.md
-hexo d -g
-</code></pre><p>访问刚刚的配置的域名就可以访问自己的网站了</p>
-
+        <p>####服务器环境配置<br>我使用的是root执行，因为服务器只有我一个人用，不会出什么问题<br>
+        
+          <a class="article-more-a" href="/2018/09/25/git_hooks/#more">more >></a>
+        
       
 
       
@@ -264,11 +207,11 @@ hexo d -g
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">技术篇</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">技术篇</a>
         		</li>
       		
 		</ul>
@@ -537,11 +480,11 @@ hexo d -g
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">技术篇</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">技术篇</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
         		</li>
       		
 		</ul>
@@ -689,7 +632,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -697,7 +640,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
