@@ -12,5 +12,8 @@
     <title><![CDATA[python2升级]]></title>
     <url>%2F2018%2F09%2F17%2Fhello-world%2F</url>
     <content type="text"><![CDATA[创建安装目录 [root@myprecious opt]# mkdir /usr/local/python3 下载Python3 [root@myprecious opt]# wget https://www.python.org/ftp/python/3.6.4/Python-3.6.4.tar.xz 编译安装 [root@myprecious opt]# tar xf Python-3.6.4.tar.xz &amp;&amp; cd Python-3.6.4 [root@myprecious Python-3.6.4]# ./configure --prefix=/usr/local/python3 [root@myprecious Python-3.6.4]# make [root@myprecious Python-3.6.4]# make install 更改链接使Python2/3两版本共存 [root@myprecious Python-3.6.4]# mv /usr/bin/python{,_bak} [root@myprecious Python-3.6.4]# mv /usr/bin/pip{,_bak} [root@myprecious Python-3.6.4]# ln -s /usr/local/python3/bin/python3 /usr/bin/python [root@myprecious Python-3.6.4]# ln -s /usr/local/python3/bin/pip3 /usr/bin/pip 使常用工具继续使用python2.7版本 [root@myprecious Python-3.6.4]# sed -i &apos;s@#!/usr/bin/python@#!/usr/bin/python2.7@&apos; /usr/bin/yum [root@myprecious Python-3.6.4]# sed -i &apos;s@#!/usr/bin/python@#!/usr/bin/python2.7@&apos; /usr/libexec/urlgrabber-ext-down 注：以后碰到其他由python写的工具不能正常工作时也可以先尝试此操作，比如supervisor。 验证python及pip版本 [root@myprecious install]# python -V Python 3.6.4 [root@myprecious install]# pip -V pip 9.0.1 from /usr/local/python3/lib/python3.6/site-packages (python 3.6)]]></content>
+      <tags>
+        <tag>python</tag>
+      </tags>
   </entry>
 </search>
